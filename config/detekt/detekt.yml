@@ -1,0 +1,94 @@
+# Detekt configuration — see PLAN.md §7.
+#
+# This file only records deliberate deviations from detekt's defaults;
+# `buildUponDefaultConfig = true` supplies the rest.
+
+build:
+  maxIssues: 0
+
+config:
+  validation: true
+  warningsAsErrors: true
+
+complexity:
+  LongMethod:
+    active: true
+    threshold: 40
+  CyclomaticComplexMethod:
+    active: true
+    threshold: 12
+  LongParameterList:
+    active: true
+    functionThreshold: 7
+    constructorThreshold: 9
+    ignoreAnnotated: ['Composable', 'Inject']
+  TooManyFunctions:
+    active: true
+    ignoreAnnotatedFunctions: ['Composable']
+
+comments:
+  # "Standard headers" from the coding-standards brief, enforced rather than reviewed.
+  UndocumentedPublicClass:
+    active: true
+    excludes: ['**/test/**', '**/androidTest/**', '**/build/**']
+  UndocumentedPublicFunction:
+    active: true
+    excludes: ['**/test/**', '**/androidTest/**', '**/build/**']
+  UndocumentedPublicProperty:
+    active: true
+    excludes: ['**/test/**', '**/androidTest/**', '**/build/**']
+
+naming:
+  # Compose @Composable functions are PascalCase by convention; the default rule rejects that.
+  FunctionNaming:
+    active: true
+    ignoreAnnotated: ['Composable']
+  TopLevelPropertyNaming:
+    active: true
+
+exceptions:
+  TooGenericExceptionCaught:
+    active: true
+  SwallowedException:
+    active: true
+style:
+  # Errors must carry their reason — see the Result/Outcome decision in PLAN.md §7.
+  ReturnCount:
+    active: true
+    max: 3
+  MagicNumber:
+    active: true
+    ignoreAnnotated: ['Composable', 'Preview']
+    # A literal assigned to a named property is already self-documenting; the rule is aimed
+    # at literals buried inside expressions. Without this, every colour token trips it.
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    excludes: ['**/test/**', '**/androidTest/**']
+  MaxLineLength:
+    active: true
+    maxLineLength: 120
+  ForbiddenComment:
+    active: true
+    comments:
+      - reason: 'Track work in the issue tracker, not in source.'
+        value: 'FIXME:'
+      - reason: 'Track work in the issue tracker, not in source.'
+        value: 'STOPSHIP:'
+  UnusedPrivateMember:
+    active: true
+    # @Preview functions are invoked by the IDE and by screenshot tests, never from code.
+    ignoreAnnotated: ['Preview', 'PreviewLightDark', 'Composable']
+  # No mutable top-level state — the "limited globals" standard from the brief.
+  ForbiddenVoid:
+    active: false
+
+formatting:
+  # ktlint rule set, supplied by detekt-formatting.
+  active: true
+  android: true
+  autoCorrect: true
+  MaximumLineLength:
+    active: true
+    maxLineLength: 120
+  FunctionNaming:
+    active: false

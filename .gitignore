@@ -1,0 +1,29 @@
+# Build output
+*.iml
+.gradle/
+build/
+/local.properties
+/.idea/
+.DS_Store
+/captures
+.externalNativeBuild
+.cxx
+/build-logic/.gradle/
+/build-logic/build/
+/build-logic/convention/build/
+
+# Signing material — must never be committed (PLAN.md §9)
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# Kotlin / KSP
+.kotlin/
+
+# Test + report output
+/reports/
+**/build/reports/
+
+# Word lock/temp files
+~$*
