@@ -61,12 +61,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
+      # Deliberately no setup-java here. This action runs inside a Docker container that
+      # ships its own JDK; setup-java exports a JAVA_HOME pointing at a host path which
+      # does not exist in the container, and the scan dies with
+      # "JAVA_HOME is not defined correctly".
       - name: Run OWASP Dependency-Check
         uses: dependency-check/Dependency-Check_Action@main
         with:
