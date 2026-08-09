@@ -37,7 +37,7 @@ coroutines = "1.10.2"
 detekt = "1.23.8"
 
 junit4 = "4.13.2"
-mockk = "1.14.7"
+mockk = "1.14.11"
 turbine = "1.2.1"
 robolectric = "4.16.1"
 androidxTestJunit = "1.2.1"
