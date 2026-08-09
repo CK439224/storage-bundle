@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "16a83bdf2e8d1035c5a5dc41faec1e0a",
+    "entities": [
+      {
+        "tableName": "media_signature",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mediaStoreId` INTEGER NOT NULL, `dateModified` INTEGER NOT NULL, `sizeBytes` INTEGER NOT NULL, `differenceHash` INTEGER NOT NULL, `widthPx` INTEGER NOT NULL, `heightPx` INTEGER NOT NULL, `capturedAtMillis` INTEGER, `indexedAtMillis` INTEGER NOT NULL, PRIMARY KEY(`mediaStoreId`))",
+        "fields": [
+          {
+            "fieldPath": "mediaStoreId",
+            "columnName": "mediaStoreId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateModified",
+            "columnName": "dateModified",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sizeBytes",
+            "columnName": "sizeBytes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "differenceHash",
+            "columnName": "differenceHash",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "widthPx",
+            "columnName": "widthPx",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heightPx",
+            "columnName": "heightPx",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capturedAtMillis",
+            "columnName": "capturedAtMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "indexedAtMillis",
+            "columnName": "indexedAtMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "mediaStoreId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_media_signature_differenceHash",
+            "unique": false,
+            "columnNames": [
+              "differenceHash"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_media_signature_differenceHash` ON `${TABLE_NAME}` (`differenceHash`)"
+          },
+          {
+            "name": "index_media_signature_capturedAtMillis",
+            "unique": false,
+            "columnNames": [
+              "capturedAtMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_media_signature_capturedAtMillis` ON `${TABLE_NAME}` (`capturedAtMillis`)"
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16a83bdf2e8d1035c5a5dc41faec1e0a')"
+    ]
+  }
+}
