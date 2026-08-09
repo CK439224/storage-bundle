@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Storage Bundle</string>
+
+    <!-- Positioning: surface what you did not know was there (PLAN.md §1.1). -->
+    <string name="app_tagline">See what has piled up</string>
+
+    <string name="nav_screenshots">Screenshots</string>
+    <string name="nav_duplicates">Duplicates</string>
+    <string name="nav_permissions">Permissions</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="permission_media_title">Access your images</string>
+    <string name="permission_media_rationale">Storage Bundle reads your images so it can find screenshots and near-duplicate photos. Images are analysed entirely on this device and are never uploaded — the app has no network access at all.</string>
+    <string name="permission_notifications_title">Send you alerts</string>
+    <string name="permission_notifications_rationale">Used only to tell you when an installed app has gained a new permission. You can turn this off at any time.</string>
+
+    <string name="permission_grant">Grant access</string>
+    <string name="permission_open_settings">Open settings</string>
+    <string name="permission_denied_permanently">Permission was denied. Enable it in system settings to use this feature.</string>
+</resources>
