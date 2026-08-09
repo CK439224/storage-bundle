@@ -66,6 +66,24 @@ android {
         buildConfig = true
     }
 
+    /*
+     * ML Kit's OCR engine ships a native library per ABI. Bundled into one APK that is ~44 MB,
+     * of which ~39 MB is the same engine four times over (the text model itself is only 1.2 MB).
+     *
+     * Google Play would split this automatically from an App Bundle, but distribution here is
+     * GitHub Releases and F-Droid (PLAN.md §1.4), so nothing does it for us. Splitting by ABI
+     * takes the download to roughly 12-15 MB. x86 variants are kept because they are what the
+     * emulator matrix in CI runs on.
+     */
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+            isUniversalApk = true
+        }
+    }
+
     // Reproducible builds are an F-Droid prerequisite (PLAN.md §9).
     dependenciesInfo {
         includeInApk = false

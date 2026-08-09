@@ -63,17 +63,22 @@ jobs:
         run: ./gradlew assembleRelease --no-daemon
 
       # Belt and braces: the build already fails if a network permission is present,
-      # but assert it against the actual shipped artifact too.
-      - name: Assert no network permission in the APK
+      # but assert it against every shipped artifact too. ABI splits mean there are
+      # several, and each one is independently published.
+      - name: Assert no network permission in any APK
         run: |
-          APK=$(find app/build/outputs/apk/release -name '*.apk' | head -1)
-          echo "Inspecting $APK"
-          "$ANDROID_HOME"/build-tools/36.0.0/aapt2 dump permissions "$APK" > perms.txt
-          cat perms.txt
-          if grep -qE 'android\.permission\.(INTERNET|ACCESS_NETWORK_STATE)' perms.txt; then
-            echo "::error::Released APK requests a network permission."
-            exit 1
-          fi
+          set -euo pipefail
+          FAILED=0
+          for APK in app/build/outputs/apk/release/*.apk; do
+            echo "--- $APK"
+            "$ANDROID_HOME"/build-tools/36.0.0/aapt2 dump permissions "$APK" > perms.txt
+            cat perms.txt
+            if grep -qE 'android\.permission\.(INTERNET|ACCESS_NETWORK_STATE)' perms.txt; then
+              echo "::error::$APK requests a network permission."
+              FAILED=1
+            fi
+          done
+          exit $FAILED
 
       - name: Clean up signing material
         if: always()

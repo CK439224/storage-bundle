@@ -424,7 +424,7 @@ parallelizable — v0.1 validation is what the schedule should be optimising for
 | OEM screenshot paths differ | Medium | Multi-signal detection, not path-only; test on Samsung + Pixel |
 | Scan/OCR OOM or ANR on large libraries | Medium | Never decode full bitmaps; bounded parallelism; checkpointed resumable work |
 | OCR accuracy poor on dark mode / small text / non-Latin | Medium | Dedicated accuracy corpus in CI; `:core:ocr` isolation allows swapping the recognizer |
-| Bundled ML Kit model inflates APK (~4 MB) | Low | Accepted — bundling is required for GMS-free and F-Droid |
+| Bundled ML Kit inflates APK — **measured at 44 MB universal, not the ~4 MB first estimated** | Medium | The text model is only 1.2 MB; the cost is ML Kit's native engine duplicated per ABI. Mitigated in Phase 0 with ABI splits: 16 MB (arm64-v8a), 11 MB (armeabi-v7a). Requires per-ABI versionCodes before v0.1 — see VERSIONING.md |
 | `QUERY_ALL_PACKAGES` blocks a future Play listing | Low (non-Play) | v0.3 feature-flagged so a Play build ships without it |
 | AGP 8.13.2 caps at API 36.1 | Low | Fine for targetSdk 36; Android 17 targeting requires an AGP bump |
 

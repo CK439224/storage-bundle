@@ -24,6 +24,24 @@ Because distribution is via GitHub Releases and F-Droid rather than Play (PLAN.m
 | `0.3.0` | v0.3: App Permission Drift Tracker |
 | `1.0.0` | Hardening, accessibility, OEM matrix, F-Droid submission |
 
+### Required before the first real release: per-ABI versionCodes
+
+The app is built with **ABI splits** (`app/build.gradle.kts`), because ML Kit's OCR engine
+ships a native library per architecture — a universal APK is ~44 MB against ~16 MB for
+arm64-v8a alone. Play would split an App Bundle automatically; GitHub Releases and F-Droid
+do not.
+
+Split APKs currently all carry the same `versionCode`. Before v0.1 ships, each ABI needs a
+distinct one, conventionally a base offset per architecture:
+
+```kotlin
+// app/build.gradle.kts
+val abiVersionOffsets = mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "x86" to 3, "x86_64" to 4)
+```
+
+Without this, F-Droid and any sideload updater cannot tell two architectures' builds apart,
+and a device can be offered an APK it cannot install.
+
 ## Branching
 
 `main` is always releasable and protected. Work happens on short-lived branches named
