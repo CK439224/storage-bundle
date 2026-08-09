@@ -73,9 +73,9 @@ jobs:
           project: storage-bundle
           path: '.'
           format: 'HTML'
-          args: >
-            --failOnCVSS 7
-            --enableExperimental
+          # Single-line scalar: a folded (>) block appends a newline, and the action
+          # passes the whole value as one argument, so the flags never parse.
+          args: '--failOnCVSS 7 --enableExperimental'
 
       - name: Upload Dependency-Check report
         if: always()
