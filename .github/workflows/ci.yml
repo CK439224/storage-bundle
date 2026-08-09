@@ -28,7 +28,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       # detekt (with the ktlint rule set), Android Lint, unit tests, and the
       # no-network manifest gate for every module - see PLAN.md 9.

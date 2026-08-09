@@ -23,7 +23,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       # The keystore never lives in the repository (VERSIONING.md). It is reconstructed
       # here from secrets and removed with the runner.
